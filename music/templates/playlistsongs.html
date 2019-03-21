@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% for playlistsong in playlistsongs %}
+
+{{ playlistsong.playlist.name }} 
+<li>
+    <b>{{ playlistsong.song.song_title }}</b>
+    <div style="display:table-cell; vertical-align:middle; padding-left: 1rem">
+        <audio controls>
+                <source src="/static/songs/{{playlistsong.song.song_title}}.mp3" type="audio/mp3">
+        </audio> 
+</div>
+</li>
+{% endfor %}
+
+
+{% endblock %}

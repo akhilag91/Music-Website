@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if playlists %}
+<h3>Your Playlists</h3>
+<ul>
+    {% for playlist in playlists %}
+   
+        
+        <!-- <a href="/playlist/{{ playlist.id }}">
+            <h4>{{ playlist.name }}</h4>
+        </a> -->
+        <a href="{% url 'view_playlist' playlist.id %}">
+            <h4><b>{{ playlist.name }}</b></h4>
+        </a>
+    
+    
+    {% endfor %}
+</ul>
+{% else %}
+    <h4>You have not created any playlists yet</h4>
+{% endif %}
+ 
+<div class = "container">
+<div id="createPlaylistContainer" class="col-md-12 container bg-light rounded">
+<h3>Create new playlist</h3>
+<form  method = 'POST' action="{% url 'crud_playlist' %}">
+    {% csrf_token %}
+  
+      <div class="form-group col-md-12">
+          <input type="text" class="form-control" id="name" placeholder="Playlist Name" name="name">
+      </div>
+      <button type="submit" value="submit"><a href="{% url 'crud_playlist' %}">Create new</a></button>
+    </form>
+</div>
+
+</div>
+{% endblock %}

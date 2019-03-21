@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+.d-inline-block {
+        display: inline-block;
+}
+</style>
+        <h3>{{ album.album_name }}</h3>
+                
+        <h4>{{ album.artist}}</h4>
+        <ul>
+                {% for song in songs %}
+                <li style="display: table-row">
+                        <div style="display:table-cell; vertical-align:middle; padding-left: 1rem" >
+                                <b>{{ song.song_title }}</b>
+                        </div>
+                        <div style="display:table-cell; vertical-align:middle; padding-left: 1rem">
+                                <audio controls>
+                                        <source src="/static/songs/{{song.song_title}}.mp3" type="audio/mp3">
+                                </audio> 
+                        </div>
+                        <div class="col-md-3" style="display:table-cell; vertical-align:middle; padding-left: 1rem;">
+                                <button class="btn btn-secondary dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="far fa-plus-square"></i>       
+                                </button>
+                                <div class="dropdown-menu">
+                                        {% for playlist in playlists %}
+                                        <a class="dropdown-item" onclick="addSongToPlaylist('{{song.id}}','{{playlist.id}}')"><ul>{{ playlist.name }}</ul></a>
+                                        {% endfor %}
+                                </div>
+                        </div>
+
+                </li>
+                {% endfor %}
+        </ul>
+
+         
+         <script>
+         var addSongToPlaylist = function(songId,playListId) {
+                        console.log(songId,playListId);
+                        console.log("sending request");
+
+                        $.ajax({
+                                type: 'POST',
+                                url: "/saveplaylist",
+                                data: {"songId": songId,'playlistId':playListId}
+                        }).done(function() {
+                                alert("save success");
+                        });
+         };
+         </script>
+       
+
+{% endblock %}

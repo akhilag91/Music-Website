@@ -1,0 +1,25 @@
+{% load crispy_forms_tags %}
+<div class="container">
+        <h1 class="text-center logo my-4">
+            <a href="{% url 'home' %} ">Mymusic</a>
+    
+        </h1>
+       
+            <h3 >log in</h3>
+                    
+            
+            <form method='post' novalidate>
+                {% csrf_token %}
+                
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary btn-block"><a href="{% url 'home' %}">Log In</a></button>
+            </form>
+            </div>
+            <div class="card -footer text-muted text-center">
+                Already have an Account?<a href="{% url 'signup' %}">Sign Up</a>
+            </div>
+            </div>
+            </div>
+            </div>
+            
+    </div>
